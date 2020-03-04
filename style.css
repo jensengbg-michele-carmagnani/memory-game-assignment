@@ -79,3 +79,6 @@ grid-area: card15;
 #card16{
 grid-area: card16;
 }
+.hide{
+    display: none;
+}
