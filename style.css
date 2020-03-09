@@ -1,6 +1,23 @@
 /* memory game css */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 20px;
+  }
 
-.gridContainer {
+  .header{
+    height: 200px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.header>h1{
+    font-size: 2rem;
+}
+
+
+.deck {
     width: 1200px;
     margin: auto;
     display: grid;
@@ -13,20 +30,42 @@
     justify-items: center;
     justify-self: center;
     row-gap: 10px;
-
+    perspective: 800px;
 }
+
+
 .card {
     border: 1px solid black;
     width: 200px;
     height: 300px ;
-    background-color: wheat;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, .7);
+    background-color: rgb(199, 191, 191);
     display: flex;
     flex-direction: column;
     justify-content: center;
-   
+    align-items: center;
+    border-radius: 1rem;
+    transition: transform 1s;
+   transform-style: preserve-3d;
 }
-h3{
+
+.card:hover{
+    background-color: rgb(221, 221, 221);
+}
+
+.front-card {
+    line-height: 260px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    backface-visibility: hidden;
+}
+
+.card > h3{
+    backface-visibility: hidden;
+    transform: perspective(400px);
     align-self: center;
+    color: black;
 }
 
 #card1{
@@ -79,6 +118,25 @@ grid-area: card15;
 #card16{
 grid-area: card16;
 }
+
 .hide{
     display: none;
+    }
+
+
+    
+
+      
+      
+      
+
+        
+        
+
+        
+
+        
+.card.is-flipped {
+    transform: rotateY(180deg);
+   
 }
