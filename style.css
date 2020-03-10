@@ -30,7 +30,7 @@
     justify-items: center;
     justify-self: center;
     row-gap: 10px;
-    perspective: 800px;
+    perspective: 1000px;
 }
 
 
@@ -53,17 +53,18 @@
     background-color: rgb(221, 221, 221);
 }
 
-.front-card {
+.front {
     line-height: 260px;
     text-align: center;
     font-weight: bold;
     font-size: 40px;
-    backface-visibility: hidden;
+    transform: rotateY(180deg);
 }
 
 .card > h3{
     backface-visibility: hidden;
     transform: perspective(400px);
+    transform: rotateY(180deg);
     align-self: center;
     color: black;
 }
