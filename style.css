@@ -120,24 +120,10 @@ grid-area: card15;
 grid-area: card16;
 }
 
-.hide{
-    display: none;
-    }
+.message{
+    display: none;}
 
-
-    
-
-      
-      
-      
-
-        
-        
-
-        
-
-        
-.card.is-flipped {
+/* .card.is-flipped {
     transform: rotateY(180deg);
    
-}
+} */

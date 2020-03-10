@@ -5,12 +5,14 @@
 let cards = document.querySelectorAll('.card');
 let cardNumber = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
 //  console.log('card before shuffle: ', cardNumber[3]);
- shuffel();
  //console.log('card after shuffle: ', cardNumber);
 
 let hasFlippedCard = false;
 let firstCard, secondCard;
 let lockBord = false;
+let moves = 0;
+let counter = document.getElementById('counter');
+let countMatch = 0;
 
 //shuffel  the array 
 function shuffel() {
@@ -40,16 +42,18 @@ function shuffel() {
 
 
 // Assign number(create a h3 to append to the card)
+let numbers = document.querySelectorAll('.numbers');
 assignNuber();
 function assignNuber(){
+  shuffel();
 for (let i= 0; i < cardNumber.length; i++){
-    let number = document.createElement('h3');
-    number.innerHTML = cardNumber[i];
+    //let number = document.createElement('h3');
+    numbers[i].innerHTML = cardNumber[i];
     //console.log('cardList: ', number);
    // console.log('cards[i]: ', cards[i]);
-    cards[i].appendChild(number);
+   // cards[i].appendChild(number);
     cards[i].setAttribute('data-framework', cardNumber[i]);
-   // console.log('cards number', number)
+   console.log('cards number', numbers);
     }
 return cardNumber   
 }
@@ -60,8 +64,11 @@ return cardNumber
 // flip the card function 
 
 function flipCard(event) {
-  console.log('firstCard: ', firstCard);
-  console.log('secondCard: ', secondCard);
+ // console.log('firstCard: ', firstCard);
+  //console.log('secondCard: ', secondCard);
+  moves++;
+  counter.innerHTML= 'Moves '+ moves;
+
   if (!firstCard || !secondCard) {
     event.target.classList.toggle('front');
     //lock the bord 
@@ -82,6 +89,10 @@ function flipCard(event) {
 
  function checkForMatch() {
    if (firstCard.dataset.framework === secondCard.dataset.framework) {
+      countMatch ++;
+      if( countMatch === 8){
+        congratulation();
+      }
      disableCards();
      return;
    }
@@ -110,8 +121,33 @@ unflipCards();
      [firstCard, secondCard] = [null, null];
  }
 
-  cards.forEach(card => card.addEventListener('click', flipCard));
-  
+cards.forEach(card => card.addEventListener('click', flipCard));
+
+
+// restart game 
+document.getElementById('restart').addEventListener('click', restartGame);
+
+function flipBack(){
+  moves = 0;
+  counter.innerHTML = 'Moves:' + moves;
+  for (i = 0; i < cards.length; i++){
+  cards[i].classList.remove('front');
+  }
+
+}
+// function restart the game 
+function restartGame(event){
+  flipBack();
+  assignNuber();
+}
+// popup message 
+function congratulation(){
+  document.getElementById('congratulation').classList.toggle('message');
+  document.getElementById('tryAgain').addEventListener('click', restartGame );
+
+}
+
+
 
 
 
