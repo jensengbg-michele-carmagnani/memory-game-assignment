@@ -15,11 +15,12 @@
 .header>h1{
     font-size: 2rem;
 }
-.restart{
+#restart{
     height: 2rem;
     width: 7rem;
     border-radius: 1,5 rem;
     border-radius: 10px;
+    background-color: antiquewhite  ;
 }
 
 
@@ -44,6 +45,7 @@
 .card {
     
     border: 1px solid black;
+    border-collapse: collapse;
     width: 200px;
     height: 300px ;
     box-shadow: 2px 3px 5px rgba(0, 0, 0, .7);
@@ -70,6 +72,7 @@
 }
 
 .card > h3{
+    font-size: 3rem;
     backface-visibility: hidden;
     transform: perspective(400px);
     transform: rotateY(180deg);
