@@ -6,20 +6,27 @@ let cards = document.querySelectorAll('.card');
 let cardNumber = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
 document.getElementById('congratulation').classList.toggle('hide');
 
+// we assign en click event listener to avery cards
+cards.forEach(card => card.addEventListener('click', flipCard));
+
+
 //console.log('card after shuffle: ', cardNumber);
 
 let hasFlippedCard = false;
 let firstCard, secondCard;
 let lockBord = false;
+
+// movese 
 let moves = 0;
 let counter = document.getElementById('counter');
+
+//array for the matches 
 let countMatch = [];
 
 //shuffel  the array 
 function shuffel() {
-	//console.log('card before shuffle: ', card);
+	
 	for (let i = cardNumber.length-1; i >= 0; i--) {
-       // console.log('-----------iteration ' + i + '---------');
         let randomIndex = Math.floor(Math.random() * (i + 1));
         let itemAtIndex = cardNumber[randomIndex];
         cardNumber[randomIndex] = cardNumber[i];
@@ -36,9 +43,7 @@ let numbers = document.querySelectorAll('.numbers');
 assignNuber();
 
 function assignNuber(){
-  
   shuffel();
-
   for (let i= 0; i < cardNumber.length; i++){
     numbers[i].innerHTML = cardNumber[i];
     cards[i].setAttribute('data-framework', cardNumber[i]);
@@ -50,14 +55,11 @@ return cardNumber
 
 }
 
-
-
-
 // flip the card function 
 
 function flipCard(event) {
  
-  //counter for the moves
+//counter for the moves
   moves++;
   counter.innerHTML= 'Moves '+ moves;
 
@@ -73,8 +75,7 @@ function flipCard(event) {
       return;    
     }
     secondCard = this;
-    
-  checkForMatch();
+    checkForMatch();
   }
  }
 // Here we check for for the card's matches 
@@ -86,7 +87,6 @@ function flipCard(event) {
         //if the matches are 8 then popUp the messagge of win!
         congratulation();
 
-        countMatch === 0;
       }
      disableCards();
      return;
@@ -115,8 +115,7 @@ function flipCard(event) {
      [hasFlippedCard, lockBord] = [false,false];
      [firstCard, secondCard] = [null, null];
  }
-// we assign en click event listener to avery cards
-cards.forEach(card => card.addEventListener('click', flipCard));
+
 
 
 
@@ -132,25 +131,31 @@ function flipBack(){
 // we assign the an event listener by click to the restart button 
 document.getElementById('restart').addEventListener('click', restartGame);
 
-// function restart the game 
-function restartGame(event){
-document.getElementById('congratulation').classList.toggle('hide');
-flipBack();
-resetBoard();
-assignNuber();
-cards.forEach(card => card.addEventListener('click', flipCard));
 
-}
 // popup message 
  function congratulation(){
     let message = document.getElementById('congratulation');
     message.classList.toggle('hide');
-   let restart = document.getElementById('tryAgain');
-   restart.addEventListener('click', restartGame );
-   
-  
+    let restart = document.getElementById('tryAgain');
+    restart.addEventListener('click', function() {
+      let message = document.getElementById('congratulation');
+        message.classList.add('hide');
+        restartGame();
+    });
+}
 
- }
+// Button tp restart the game 
+//document.getElementById('trayAgain').addEventListener('click', restartGame);
+
+function restartGame(){
+  //document.getElementById('congratulation').classList.toggle('hide');
+  flipBack();
+  assignNuber();
+  countMatch = 0;
+  resetBoard();
+  cards.forEach(card => card.addEventListener('click', flipCard));
+
+}
 
 
 
