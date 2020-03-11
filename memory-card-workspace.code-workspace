@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "/Users/michelecarmagnani/Git/jensen/Javascript/shopping-cart-exercise"
+		},
+		{
+			"path": "/Users/michelecarmagnani/Git/jensen/flipCard"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "flipCard"
+	}
+}

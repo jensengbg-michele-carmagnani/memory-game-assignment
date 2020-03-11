@@ -4,15 +4,16 @@
 // calling all the elements Card
 let cards = document.querySelectorAll('.card');
 let cardNumber = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
-//  console.log('card before shuffle: ', cardNumber[3]);
- //console.log('card after shuffle: ', cardNumber);
+document.getElementById('congratulation').classList.toggle('hide');
+
+//console.log('card after shuffle: ', cardNumber);
 
 let hasFlippedCard = false;
 let firstCard, secondCard;
 let lockBord = false;
 let moves = 0;
 let counter = document.getElementById('counter');
-let countMatch = 0;
+let countMatch = [];
 
 //shuffel  the array 
 function shuffel() {
@@ -20,42 +21,33 @@ function shuffel() {
 	for (let i = cardNumber.length-1; i >= 0; i--) {
        // console.log('-----------iteration ' + i + '---------');
         let randomIndex = Math.floor(Math.random() * (i + 1));
-        //console.log('RandomIndex: ', randomIndex);
         let itemAtIndex = cardNumber[randomIndex];
-        //console.log('itemAtIndex: ', itemAtIndex);
         cardNumber[randomIndex] = cardNumber[i];
-       // console.log('Card[0]: ', card[0]);
-        // console.log('Still RandomIndex: ', randomIndex);
-        // console.log('Card[i] before shuffle: ', card[i]);
-        // console.log('card[randomIndex]', card[randomIndex]);
         cardNumber[i] = itemAtIndex;
-        // console.log('card[i]', card[i]);
-        // console.log('Card after shuffle: ', card);
-        // console.log('-----------iteration---------');
+       
     }
     
     return cardNumber;
   
 }	
 
-
-
-
-// Assign number(create a h3 to append to the card)
+// Assign number(
 let numbers = document.querySelectorAll('.numbers');
 assignNuber();
+
 function assignNuber(){
+  
   shuffel();
-for (let i= 0; i < cardNumber.length; i++){
-    //let number = document.createElement('h3');
+
+  for (let i= 0; i < cardNumber.length; i++){
     numbers[i].innerHTML = cardNumber[i];
-    //console.log('cardList: ', number);
-   // console.log('cards[i]: ', cards[i]);
-   // cards[i].appendChild(number);
     cards[i].setAttribute('data-framework', cardNumber[i]);
-   console.log('cards number', numbers);
+    console.log('cards number', cardNumber);
+   // console.log(cards);
     }
+    
 return cardNumber   
+
 }
 
 
@@ -64,8 +56,8 @@ return cardNumber
 // flip the card function 
 
 function flipCard(event) {
- // console.log('firstCard: ', firstCard);
-  //console.log('secondCard: ', secondCard);
+ 
+  //counter for the moves
   moves++;
   counter.innerHTML= 'Moves '+ moves;
 
@@ -82,24 +74,27 @@ function flipCard(event) {
     }
     secondCard = this;
     
-
-    checkForMatch();
+  checkForMatch();
   }
  }
-
+// Here we check for for the card's matches 
  function checkForMatch() {
    if (firstCard.dataset.framework === secondCard.dataset.framework) {
       countMatch ++;
+      // In case all of the matches are found ==> Congratulation you win the game
       if( countMatch === 8){
+        //if the matches are 8 then popUp the messagge of win!
         congratulation();
+
+        countMatch === 0;
       }
      disableCards();
      return;
    }
 
-unflipCards();
+  unflipCards();
  }
-
+// here we prevent for futher click by removing the click EventLiistener
  function disableCards() {
    firstCard.removeEventListener('click', flipCard);
    secondCard.removeEventListener('click', flipCard);
@@ -120,13 +115,12 @@ unflipCards();
      [hasFlippedCard, lockBord] = [false,false];
      [firstCard, secondCard] = [null, null];
  }
-
+// we assign en click event listener to avery cards
 cards.forEach(card => card.addEventListener('click', flipCard));
 
 
-// restart game 
-document.getElementById('restart').addEventListener('click', restartGame);
 
+//the function "flip back" the card and it's used we press the restart button
 function flipBack(){
   moves = 0;
   counter.innerHTML = 'Moves:' + moves;
@@ -135,17 +129,28 @@ function flipBack(){
   }
 
 }
+// we assign the an event listener by click to the restart button 
+document.getElementById('restart').addEventListener('click', restartGame);
+
 // function restart the game 
 function restartGame(event){
-  flipBack();
-  assignNuber();
-}
-// popup message 
-function congratulation(){
-  document.getElementById('congratulation').classList.toggle('message');
-  document.getElementById('tryAgain').addEventListener('click', restartGame );
+document.getElementById('congratulation').classList.toggle('hide');
+flipBack();
+resetBoard();
+assignNuber();
+cards.forEach(card => card.addEventListener('click', flipCard));
 
 }
+// popup message 
+ function congratulation(){
+    let message = document.getElementById('congratulation');
+    message.classList.toggle('hide');
+   let restart = document.getElementById('tryAgain');
+   restart.addEventListener('click', restartGame );
+   
+  
+
+ }
 
 
 
